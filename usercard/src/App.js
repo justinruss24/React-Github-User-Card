@@ -11,9 +11,14 @@ const Container = styled.div `
   margin: 5%;
   flex-direction: column;
 `
+const H1 = styled.h1 `
+  background-color: white;
+  color: #24292e; 
+  padding: 2%;
+`
 
 const Card = styled.div `
-  border: 1px solid blue;
+  margin: 2%;
   border-radius: 30%;
   height: 200px;
   width: 50%;
@@ -25,6 +30,8 @@ const Card = styled.div `
       max-height: 150px;
       border-radius: 20%;
     }
+  background: #24292e;
+  color: white;
 
 `
 
@@ -47,26 +54,12 @@ class App extends React.Component {
     })
   }
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (prevState.users !== this.state.users) {
-  //   axios.get('https://api.github.com/users/justinruss24/followers')
-  //     .then(response => {
-  //       console.log(response.data)
-  //       this.setState({
-  //         users: response.data
-  //       })
-  //     })
-  //     .catch(error => {
-  //       console.log('sorrey', error)
-  //     })
-  //   }
-  // }
 
   getFollowers = e => {
     e.preventDefault();
     axios.get('https://api.github.com/users/justinruss24/followers')
       .then(response => {
-        console.log(response.data)
+        // console.log(response.data)
         this.setState({
           followers: response.data
         })
@@ -79,7 +72,7 @@ class App extends React.Component {
   render() {
     return (
       <Container>
-        <h1>React Github UserCard</h1>
+        <H1>React Github UserCard</H1>
         <Card>
           <div>
             <img src={this.state.users.avatar_url} alt={this.state.users.name} />
@@ -90,18 +83,16 @@ class App extends React.Component {
           </div>
         </Card>
         <button onClick={this.getFollowers}>Show Followers</button>
-        <div>
           {this.state.followers.map(followers => (
             <Card key={followers.id}>
               <div>
-                <img src={this.state.followers.avatar_url} alt={this.state.followers.login} />
+                <img src={followers.avatar_url} alt={followers.login} />
               </div>
               <div>
-                <p>Github: {this.state.followers.login}</p>
+                <p>Github: {followers.login}</p>
               </div>
             </Card>
           ))}
-        </div>
       </Container>
     );
   }
