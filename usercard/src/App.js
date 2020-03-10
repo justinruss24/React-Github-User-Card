@@ -54,7 +54,6 @@ class App extends React.Component {
     })
   }
 
-
   getFollowers = e => {
     e.preventDefault();
     axios.get('https://api.github.com/users/justinruss24/followers')
@@ -82,7 +81,7 @@ class App extends React.Component {
             <p>Github: {this.state.users.login}</p>
           </div>
         </Card>
-        <button onClick={this.getFollowers}>Show Followers</button>
+        <button onClick={this.getFollowers}>Show Followers ({this.state.users.followers})</button>
           {this.state.followers.map(followers => (
             <Card key={followers.id}>
               <div>
